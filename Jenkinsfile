@@ -43,7 +43,7 @@ pipeline {
                     script {
                         sh "docker pull devopsowen/react-app:${env.BUILD_NUMBER}"
                         try {
-                            sh "if docker ps | grep -q react-app; then docker stop react-app && docker rm react-app else echo 'App isn't running'; fi"
+                            sh 'if docker ps | grep -q react-app; then docker stop react-app && docker rm react-app; else echo "App is not running"; fi'
                            } catch (err) {
                             echo: 'caught error: $err'
                         }
@@ -81,8 +81,8 @@ pipeline {
                     script {
                         sh "docker pull devopsowen/react-app:${env.BUILD_NUMBER}"
                         try {
-                             sh "if docker ps | grep -q react-app; then docker stop react-app && docker rm react-app else echo 'App isn't running'; fi"
-                          } catch (err) {
+                          sh 'if docker ps | grep -q react-app; then docker stop react-app && docker rm react-app; else echo "App is not running"; fi'
+                           } catch (err) {
                             echo: 'caught error: $err'
                         }
                         sh "docker run --restart always --name react-app -p 1233:80 -d devopsowen/react-app:${env.BUILD_NUMBER}"
